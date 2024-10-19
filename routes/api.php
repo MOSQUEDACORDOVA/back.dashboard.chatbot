@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/create/{alias}', [GeneralCRUDController::class, 'createRecord']);
     Route::delete('/{alias}/{id}', [GeneralCRUDController::class, 'deleteRecord']);
     Route::get('/{alias}/{id?}', [GeneralCRUDController::class, 'getRecord']);
+    Route::put('/{alias}/{id}', [GeneralCRUDController::class, 'editRecord']);
 
 });
 

@@ -110,7 +110,38 @@ class GeneralCRUDController extends Controller
         ]);
     }
     
+    public function editRecord($alias, Request $request, $id)
+    {
+        if (!array_key_exists($alias, $this->modelsMap)) {
+            return response()->json(['error' => 'Invalid alias'], 404);
+        }
+    
+        $modelClass = $this->modelsMap[$alias];
+    
+        // Buscar el registro por ID
+        $record = $modelClass::find($id);
+        if (!$record) {
+            return response()->json(['error' => 'Record not found'], 404);
+        }
+    
+        // Validar los datos usando el validador
+        $validator = Validator::make($request->all(), [
+            'owner' => 'required|string',
+            'property_code' => 'required|string',
+            // Agrega más validaciones según tus necesidades
+        ]);
 
+        // Si la validación falla, devolverá los errores
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Actualiza el registro con los datos validados
+        $record->update($request->all());
+
+        return response()->json(['message' => 'Record updated successfully', 'data' => $record], 200);
+    }
+    
 
 
 }
