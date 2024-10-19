@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Response;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DeliveryController;
 use App\Http\Middleware\CheckUserType;
+use App\Http\Controllers\GeneralCRUDController;
+
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -16,13 +17,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::middleware('auth:sanctum')->get('/check-session', [AuthController::class, 'checkSession']);
-
-    //Crear registro
-    Route::post('/delivery', [DeliveryController::class, 'store']);
-    //Esitar registro
-    Route::put('/delivery/{id}', [DeliveryController::class, 'update']);
-    //Eliminar registro
-    Route::delete('/delivery/{id}', [DeliveryController::class, 'destroy']);
 
     // Crear y editar usuario
     Route::middleware(CheckUserType::class)->group(function () {
@@ -38,10 +32,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/users/{id}', [UserController::class, 'destroy']);
     });
 
-    //Ver delivery
-    Route::get('/delivery', [DeliveryController::class, 'index']);
+    Route::post('/create/{alias}', [GeneralCRUDController::class, 'createRecord']);
+    Route::delete('/{alias}/{id}', [GeneralCRUDController::class, 'deleteRecord']);
+    Route::get('/{alias}/{id?}', [GeneralCRUDController::class, 'getRecord']);
 
 });
-
 
 
