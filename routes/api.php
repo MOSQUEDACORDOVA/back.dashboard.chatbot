@@ -7,7 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckUserType;
 use App\Http\Controllers\GeneralCRUDController;
-
+use App\Http\Controllers\ConversationHistoryController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -32,11 +32,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/users/{id}', [UserController::class, 'destroy']);
     });
 
+    Route::get('/unique-contacts', [ConversationHistoryController::class, 'getUniqueContacts']);
+    Route::get('/messages/{userPhone}', [ConversationHistoryController::class, 'getMessagesByUserPhone']);
+
     Route::post('/create/{alias}', [GeneralCRUDController::class, 'createRecord']);
     Route::delete('/{alias}/{id}', [GeneralCRUDController::class, 'deleteRecord']);
     Route::get('/{alias}/{id?}', [GeneralCRUDController::class, 'getRecord']);
     Route::put('/{alias}/{id}', [GeneralCRUDController::class, 'editRecord']);
-
+    
 });
-
 
