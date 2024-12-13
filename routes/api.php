@@ -11,6 +11,9 @@ use App\Http\Controllers\ConversationHistoryController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
+//Crear usuario
+Route::post('/register', [AuthController::class, 'register']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -20,12 +23,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Crear y editar usuario
     Route::middleware(CheckUserType::class)->group(function () {
-        //Crear usuario
-        Route::post('/register', [AuthController::class, 'register']);
         //Esitar Usuario
         Route::put('/users/{id}', [UserController::class, 'update']);
         //Crear usuario
-        Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/dashboard/register', [AuthController::class, 'register']);
         //Ver usuarios
         Route::get('/users', [UserController::class, 'index']);
         //Eliminar usuario
