@@ -14,5 +14,6 @@ class ConversationHistory extends Model
         'name',
         'role',
         'message',
+        'type',
     ];
 }
