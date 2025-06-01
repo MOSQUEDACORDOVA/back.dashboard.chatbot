@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->enum('role', ['user', 'assistant', 'system']); // Identifica si es usuario o ChatGPT
             $table->text('message'); // Mensaje enviado o recibido
+            $table->integer('id_next_case')->nullable();
             $table->timestamps(); // Tiempos de creación y actualización
         });
     }

@@ -13,8 +13,15 @@ return new class extends Migration
     {
         Schema::create('conversation_configurations', function (Blueprint $table) {
             $table->id();
-            $table->string('user_phone')->unique(); // Número de teléfono
-            $table->boolean('conversation_enabled')->default(true); // Ejemplo de otra configuración (puedes agregar más)
+            $table->string('user_phone')->nullable()->unique(); // Número de teléfono opcional
+            $table->string('user_email')->nullable(); // Correo electrónico del usuario
+            $table->string('user_card_id')->nullable(); // ID de la tarjeta del usuario
+            $table->string('user_name')->nullable(); // Nombre del usuario
+            $table->boolean('conversation_enabled')->default(true);
+            $table->unsignedBigInteger('id_next_case')->nullable(); // se usa si se necesita un flujo rigido
+            $table->string('thread_id')->nullable();
+            $table->string('expected_message_type')->nullable(); // Tipo de mensaje esperado (text, interactive, etc.)
+            $table->string('source')->nullable(); // Fuente del mensaje (popup, whatsapp, etc.)
             $table->timestamps();
         });
     }
