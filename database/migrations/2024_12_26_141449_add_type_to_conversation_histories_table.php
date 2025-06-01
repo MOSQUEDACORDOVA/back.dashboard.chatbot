@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('conversation_histories', function (Blueprint $table) {
-            $table->enum('type', ['text', 'audio', 'image', 'video'])->default('text')->after('message'); // Agregado 'video'
+            $table->enum('type', ['text', 'audio', 'image', 'video', 'interactive'])->default('text')->after('message'); // Agregado 'video'
         });
     }
 
